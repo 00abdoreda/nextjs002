@@ -17,6 +17,8 @@ import Stack from "@mui/joy/Stack";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import BadgeRoundedIcon from "@mui/icons-material/BadgeRounded";
+import { dark } from "@mui/material/styles/createPalette";
+import { createTheme } from "@mui/material";
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -50,11 +52,11 @@ function ColorSchemeToggle(props: IconButtonProps) {
   );
 }
 
-const customTheme = extendTheme({ defaultColorScheme: "dark" });
+
 
 export default function JoySignInSideTemplate() {
   return (
-    <CssVarsProvider theme={customTheme} disableTransitionOnChange>
+    <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
       <GlobalStyles
         styles={{
