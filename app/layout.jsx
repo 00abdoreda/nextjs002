@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" charSet="UTF-8">
       <body style={{ backgroundColor: "inherit", color: "inherit" }}>
         {children}
       </body>
