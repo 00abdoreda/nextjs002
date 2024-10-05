@@ -76,9 +76,9 @@ const RightSideTabs = () => {
           width: 'fit-content',
           height: 'fit-content', position: 'fixed', marginRight: '10px', marginBottom: '10px'
         }}
-          initial={{ x: !toggleLogo ? '0' : '200%', y: !toggleLogo ? '0' : '200%' }}
+          initial={{ x: !toggleLogo ? '0' : '100000%', y: !toggleLogo ? '0' : '100000%' }}
           animate={{
-            x: toggleLogo ? '0' : '200%', y: toggleLogo ? '0' : '200%'
+            x: toggleLogo ? '0' : '100000%', y: toggleLogo ? '0' : '100000%'
             // transitionEnd: {
             //   display: toggleLogo ? 'block' : 'none',
             // },
