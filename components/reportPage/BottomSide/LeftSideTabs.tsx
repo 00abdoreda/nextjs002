@@ -8,6 +8,8 @@ import { CardBody } from "react-bootstrap";
 import { Select, MenuItem, InputLabel } from "@mui/material";
 
 import { useState } from "react";
+import FloatingButton02 from "./FloadtingButton02";
+import AddIcon from '@mui/icons-material/Add';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -296,6 +298,12 @@ export default function BasicTabs() {
           />
         </CardBody>
       </CustomTabPanel>
+      <div className='w-100  d-flex align-items-end justify-content-end' style={{ padding: '0 60px 50px 0' }}>
+        <FloatingButton02 right0='35px' bottom0='30px' icon0={<AddIcon style={{
+          right: '3px',
+          position: 'relative'
+        }} />} />
+      </div>
     </>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 import { Card, Col, Row } from "antd";
 import React from "react";
-import BasicTabs from "./LeftSideTabs";
+import BasicTabs from "./BottomSide/LeftSideTabs";
 import { CardBody } from "react-bootstrap";
-import RightSideTabs from "./RightSideTabs";
+import RightSideTabs from "./BottomSide/RightSideTabs";
 
 const Bottom: React.FC = () => (
   <div className="site-card-wrapper">
