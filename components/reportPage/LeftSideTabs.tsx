@@ -1,13 +1,13 @@
 "use client";
 import * as React from "react";
+import { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { TextField } from "@mui/material";
+import { TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { CardBody } from "react-bootstrap";
-import { Select, MenuItem, InputLabel } from "@mui/material";
-
-import { useState } from "react";
+import { Select, MenuItem, IconButton, Typography } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -39,38 +39,88 @@ function a11yProps(index: number) {
 }
 
 export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false); // State for controlling the dialog
+  const [specimens, setSpecimens] = useState([
+    {
+      typeOfSpecimen: '',
+      siteOfSpecimen: '',
+      numberOfSpecimens: '',
+      dateReceived: '',
+      referringDoctor: '',
+      isOpen: false,
+    }
+  ]);
 
-  // State for all input fields across tabs
   const [formData, setFormData] = useState({
     patientName: "",
     patientAge: "",
+    dateCreated: "",
     referringDoctor: "",
     dateReceived: "",
-    department: "",
-    dateReportGenerated: "",
-    organSite: "",
     typeOfSpecimen: "",
-    diagnosis: "",
-    comments: "",
-    recommendations: "",
-    clinicalData: "",
+    siteOfSpecimen: "",
+    numberOfSpecimens: "",
+    Gender: "",
+    Lab: [],
+    ClinicalData: "",
+    GrossPicture: "",
+    MicroscopicPicture: "",
+    Diagnosis: "",
+    Comments: "",
+    Recommendations: ""
   });
 
-  // Handle Tab change
+  const handleSpecimenChange = (index, event) => {
+    const { name, value } = event.target;
+    const updatedSpecimens = [...specimens];
+    updatedSpecimens[index][name] = value;
+    setSpecimens(updatedSpecimens);
+  };
+
+  const addNewSpecimenGroup = () => {
+    setSpecimens([
+      ...specimens,
+      {
+        typeOfSpecimen: '',
+        siteOfSpecimen: '',
+        numberOfSpecimens: '',
+        dateReceived: '',
+        referringDoctor: '',
+        isOpen: false,
+      }
+    ]);
+  };
+
+  const toggleGroup = (index) => {
+    const updatedSpecimens = [...specimens];
+    updatedSpecimens[index].isOpen = !updatedSpecimens[index].isOpen;
+    setSpecimens(updatedSpecimens);
+  };
+
   const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  // Handle TextField value changes
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle Select dropdown change
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setFormData({ ...formData, clinicalData: event.target.value as string });
+    setFormData({ ...formData, Gender: event.target.value as string });
+  };
+
+  const handleSelectChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setFormData({ ...formData, Lab: event.target.value as [] });
+  };
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
   };
 
   return (
@@ -85,15 +135,9 @@ export default function BasicTabs() {
           scrollButtons
           aria-label="horizontal scrollable prevent tabs example"
         >
-          <Tab label="Patient Data" {...a11yProps(0)} />
-          <Tab label="Sharable Information" {...a11yProps(1)} />
-          <Tab label="Specimen Information" {...a11yProps(2)} />
-          <Tab label="Clinical Data" {...a11yProps(3)} />
-          <Tab label="Gross Picture" {...a11yProps(4)} />
-          <Tab label="Microscopic Picture" {...a11yProps(5)} />
-          <Tab label="Diagnosis" {...a11yProps(6)} />
-          <Tab label="Comments" {...a11yProps(7)} />
-          <Tab label="Recommendations" {...a11yProps(8)} />
+          <Tab label="Patient ID" {...a11yProps(0)} />
+          <Tab label="Specimen Data" {...a11yProps(1)} />
+          <Tab label="Examination Data" {...a11yProps(2)} />
         </Tabs>
       </Box>
 
@@ -117,185 +161,246 @@ export default function BasicTabs() {
             value={formData.patientAge}
             onChange={handleInputChange}
           />
-          <TextField
-            id="outlined-basic"
-            label="Referring Doctor"
-            variant="outlined"
-            className="col-6"
-            name="referringDoctor"
-            value={formData.referringDoctor}
-            onChange={handleInputChange}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Date Received"
-            variant="outlined"
-            className="col-5"
-            name="dateReceived"
-            value={formData.dateReceived}
-            onChange={handleInputChange}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Department"
-            variant="outlined"
-            className="col-6"
-            name="department"
-            value={formData.department}
-            onChange={handleInputChange}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Date Report Generated"
-            variant="outlined"
-            className="col-5"
-            name="dateReportGenerated"
-            value={formData.dateReportGenerated}
-            onChange={handleInputChange}
-          />
-        </CardBody>
-      </CustomTabPanel>
-
-      {/* Sharable Information Tab */}
-      <CustomTabPanel value={value} index={1}>
-        <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly" style={{ maxHeight: "300px", overflowY: "auto" }}>
-          <TextField
-            id="outlined-basic"
-            label="Information"
-            variant="outlined"
-            fullWidth
-            multiline
-            minRows={3}
-            className="col-12"
-          />
-        </CardBody>
-      </CustomTabPanel>
-
-      {/* Specimen Information Tab */}
-      <CustomTabPanel value={value} index={2}>
-        <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly">
-          <TextField
-            id="outlined-basic"
-            label="Organ Site"
-            variant="outlined"
-            className="col-6"
-            name="organSite"
-            value={formData.organSite}
-            onChange={handleInputChange}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Type Of Specimen"
-            variant="outlined"
-            className="col-5"
-            name="typeOfSpecimen"
-            value={formData.typeOfSpecimen}
-            onChange={handleInputChange}
-          />
-        </CardBody>
-      </CustomTabPanel>
-
-      {/* Clinical Data Tab */}
-      <CustomTabPanel value={value} index={3}>
-        <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly">
-          <InputLabel id="dropdown-label">Select Item</InputLabel>
           <Select
-            labelId="dropdown-label"
-            value={formData.clinicalData}
-            // onChange={handleSelectChange}
-            label="Select Item"
-            className="col-10"
+            value={formData.Gender}
+            className="col-6"
+            displayEmpty
+            onChange={handleSelectChange}
           >
-            <MenuItem value={1}>Item 1</MenuItem>
-            <MenuItem value={2}>Item 2</MenuItem>
-            <MenuItem value={3}>Item 3</MenuItem>
+            <MenuItem value="" disabled>
+              Select Gender
+            </MenuItem>
+            <MenuItem value={1}>Male</MenuItem>
+            <MenuItem value={2}>Female</MenuItem>
+          </Select>
+          <TextField
+            id="outlined-basic"
+            label="Date Created"
+            variant="outlined"
+            type="datetime-local"
+            className="col-5"
+            name="dateCreated"
+            value={formData.dateCreated}
+            onChange={handleInputChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Select
+            multiple
+            value={formData.Lab || []}
+            onChange={handleSelectChange2}
+            name="LabID"
+            renderValue={(selected) => selected.length === 0 ? 'Select Lab' : selected.join(', ')}
+            variant="outlined"
+            className="col-6"
+            displayEmpty
+          >
+            <MenuItem value="" disabled>
+              Select Lab
+            </MenuItem>
+            <MenuItem value="Lab1">Lab1</MenuItem>
+            <MenuItem value="Lab2">Lab2</MenuItem>
           </Select>
         </CardBody>
       </CustomTabPanel>
 
-      {/* Gross Picture Tab */}
-      <CustomTabPanel value={value} index={4}>
-        <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly">
-          <TextField
-            id="outlined-basic"
-            label="Gross Picture Details"
+      <CustomTabPanel value={value} index={1}>
+        <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly" style={{ maxHeight: "280px", overflowY: "auto" }}>
+          {specimens.map((specimen, index) => (
+            <div key={index} className="specimen-group col-12" style={{
+              border: '1px solid #ccc',
+              borderRadius: '8px',
+              padding: '16px',
+              marginBottom: '16px',
+              width: '100%',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => toggleGroup(index)}>
+                <IconButton size="small">
+                  <ExpandMoreIcon style={{ transform: specimen.isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }} />
+                </IconButton>
+                <Typography variant="h6">{`Specimen Group ${index + 1}`}</Typography>
+              </div>
+              {specimen.isOpen && (
+                <Box sx={{ mt: 2 }}>
+                  <TextField
+                    name="typeOfSpecimen"
+                    value={specimen.typeOfSpecimen}
+                    onChange={(event) => handleSpecimenChange(index, event)}
+                    label="Type of Specimen"
+                    variant="outlined"
+                    fullWidth
+                    multiline
+                    minRows={1}
+                    className="col-6"
+                    sx={{ mb: 2, mr: 2 }}
+                  />
+                  <TextField
+                    name="siteOfSpecimen"
+                    value={specimen.siteOfSpecimen}
+                    onChange={(event) => handleSpecimenChange(index, event)}
+                    label="Site of Specimen"
+                    variant="outlined"
+                    fullWidth
+                    multiline
+                    minRows={1}
+                    className="col-5"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    name="numberOfSpecimens"
+                    value={specimen.numberOfSpecimens}
+                    onChange={(event) => handleSpecimenChange(index, event)}
+                    label="Number of Specimens"
+                    variant="outlined"
+                    fullWidth
+                    type="number"
+                    className="col-6"
+                    sx={{ mb: 2, mr: 2 }}
+                  />
+                  <TextField
+                    name="dateReceived"
+                    value={specimen.dateReceived}
+                    onChange={(event) => handleSpecimenChange(index, event)}
+                    label="Date Received"
+                    variant="outlined"
+                    type="datetime-local"
+                    className="col-5"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    name="referringDoctor"
+                    value={specimen.referringDoctor}
+                    onChange={(event) => handleSpecimenChange(index, event)}
+                    label="Referring Doctor"
+                    variant="outlined"
+                    fullWidth
+                    className="col-6"
+                    sx={{ mb: 2, mr: 2 }}
+                  />
+                </Box>
+              )}
+            </div>
+          ))}
+          <Button
+            onClick={addNewSpecimenGroup}
             variant="outlined"
-            fullWidth
-            multiline
-            minRows={3}
-            className="col-12"
-          />
+            color="primary"
+            style={{ height: 'fit-content' }}
+            sx={{ mb: 2 }}
+          >
+            Add Another Specimen Group
+          </Button>
         </CardBody>
       </CustomTabPanel>
 
-      {/* Microscopic Picture Tab */}
-      <CustomTabPanel value={value} index={5}>
+      <CustomTabPanel value={value} index={2}>
         <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly">
           <TextField
             id="outlined-basic"
-            label="Microscopic Picture Details"
+            label="Clinical Data"
             variant="outlined"
-            fullWidth
-            multiline
-            minRows={3}
-            className="col-12"
+            className="col-6"
+            name="ClinicalData"
+            value={formData.ClinicalData}
+            onChange={handleInputChange}
           />
-        </CardBody>
-      </CustomTabPanel>
-
-      {/* Diagnosis Tab */}
-      <CustomTabPanel value={value} index={6}>
-        <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly">
+          <TextField
+            id="outlined-basic"
+            label="Gross Picture"
+            variant="outlined"
+            className="col-5"
+            name="GrossPicture"
+            value={formData.GrossPicture}
+            onChange={handleInputChange}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Microscopic Picture"
+            variant="outlined"
+            className="col-6"
+            name="MicroscopicPicture"
+            value={formData.MicroscopicPicture}
+            onChange={handleInputChange}
+          />
           <TextField
             id="outlined-basic"
             label="Diagnosis"
             variant="outlined"
-            fullWidth
-            multiline
-            minRows={3}
-            className="col-12"
-            name="diagnosis"
-            value={formData.diagnosis}
+            className="col-5"
+            name="Diagnosis"
+            value={formData.Diagnosis}
             onChange={handleInputChange}
           />
-        </CardBody>
-      </CustomTabPanel>
-
-      {/* Comments Tab */}
-      <CustomTabPanel value={value} index={7}>
-        <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly">
           <TextField
             id="outlined-basic"
             label="Comments"
             variant="outlined"
-            fullWidth
-            multiline
-            minRows={3}
-            className="col-12"
-            name="comments"
-            value={formData.comments}
+            className="col-6"
+            name="Comments"
+            value={formData.Comments}
+            onChange={handleInputChange}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Recommendations"
+            variant="outlined"
+            className="col-5"
+            name="Recommendations"
+            value={formData.Recommendations}
             onChange={handleInputChange}
           />
         </CardBody>
       </CustomTabPanel>
 
-      {/* Recommendations Tab */}
-      <CustomTabPanel value={value} index={8}>
-        <CardBody className="d-flex py-3 gap-3 flex-wrap justify-content-evenly">
+      {/* Button to open the dialog */}
+      <Button
+        onClick={handleDialogOpen}
+        variant="contained"
+        color="primary"
+        sx={{ mt: 2, ml: 2 }}
+      >
+        Fill from Template
+      </Button>
+
+      {/* Dialog for filling in form details */}
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Fill Form Template</DialogTitle>
+        <DialogContent>
           <TextField
             id="outlined-basic"
-            label="Recommendations"
+            label="Patient Name"
             variant="outlined"
-            fullWidth
-            multiline
-            minRows={3}
             className="col-12"
-            name="recommendations"
-            value={formData.recommendations}
+            name="patientName"
+            value={formData.patientName}
             onChange={handleInputChange}
+            sx={{ mb: 2 }}
           />
-        </CardBody>
-      </CustomTabPanel>
+          <TextField
+            id="outlined-basic"
+            label="Patient Age"
+            variant="outlined"
+            className="col-12"
+            name="patientAge"
+            value={formData.patientAge}
+            onChange={handleInputChange}
+            sx={{ mb: 2 }}
+          />
+          {/* Add additional form fields as needed */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDialogClose} color="primary">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

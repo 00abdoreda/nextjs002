@@ -3,6 +3,11 @@ import { Card, Col, Row } from "antd";
 import React from "react";
 import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material";
+import {  IconButton } from "@mui/material";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const inter = Roboto({
   weight: ["400", "700"],
@@ -28,9 +33,23 @@ const Upper: React.FC = () => (
               fontWeight: `bold`,
               fontSize: "3rem",
             }}>
-            1M+
+            +5 images
           </h2>
-          <p>community members</p>
+          <p>Request & investigation</p>
+          <div className="d-flex justify-content-center" style={{ paddingBottom: "10px" }}>
+    <IconButton>
+      <FavoriteIcon />
+    </IconButton>
+    <IconButton>
+      <ShareIcon />
+    </IconButton>
+    <IconButton>
+      <FileDownloadIcon />
+    </IconButton>
+    <IconButton>
+      <VisibilityIcon />
+    </IconButton>
+  </div>
         </Card>
       </Col>
       <Col span={8}>
@@ -48,9 +67,23 @@ const Upper: React.FC = () => (
               fontWeight: `bold`,
               fontSize: "3rem",
             }}>
-            150+
+           +3 images
           </h2>
-          <p>community groups</p>
+          <p>Gross Images</p>
+          <div className="d-flex justify-content-center" style={{ paddingBottom: "10px" }}>
+    <IconButton>
+      <FavoriteIcon />
+    </IconButton>
+    <IconButton>
+      <ShareIcon />
+    </IconButton>
+    <IconButton>
+      <FileDownloadIcon />
+    </IconButton>
+    <IconButton>
+      <VisibilityIcon />
+    </IconButton>
+  </div>
         </Card>
       </Col>
       <Col span={8}>
@@ -68,9 +101,23 @@ const Upper: React.FC = () => (
               fontWeight: `bold`,
               fontSize: "3rem",
             }}>
-            50+
+            +2 images
           </h2>
-          <p>countries represented</p>
+          <p>Microscopic Images</p>
+          <div className="d-flex justify-content-center" style={{ paddingBottom: "10px" }}>
+    <IconButton>
+      <FavoriteIcon />
+    </IconButton>
+    <IconButton>
+      <ShareIcon />
+    </IconButton>
+    <IconButton>
+      <FileDownloadIcon />
+    </IconButton>
+    <IconButton>
+      <VisibilityIcon />
+    </IconButton>
+  </div>
         </Card>
       </Col>
     </Row>

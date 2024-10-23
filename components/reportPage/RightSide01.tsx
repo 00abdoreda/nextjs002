@@ -55,7 +55,7 @@ const RightSide01 = () => {
           aria-label="horizontal scrollable prevent tabs example"
         >
           <Tab label="Data Collection" {...a11yProps(0)} />
-          <Tab label="Templates" {...a11yProps(1)} />
+          
           <Tab label="Comments" {...a11yProps(2)} />
         </Tabs>
       </Box>

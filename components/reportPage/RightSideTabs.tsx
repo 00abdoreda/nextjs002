@@ -87,9 +87,9 @@ const RightSideTabs = () => {
         >
           <Tabs orientation='vertical'>
             <TabsList>
-              <Tab >My account</Tab>
-              <Tab >Profile</Tab>
-              <Tab >Language</Tab>
+              <Tab >A1</Tab>
+              <Tab >A2</Tab>
+              <Tab >A3</Tab>
             </TabsList>
           </Tabs>
         </motion.div>

@@ -109,11 +109,7 @@ function CaseReport() {
               Data Collection
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Templates
-            </a>
-          </li>
+         
           <li className="nav-item">
             <a className="nav-link" href="#">
               Comments
