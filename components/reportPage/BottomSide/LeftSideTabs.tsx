@@ -6,8 +6,16 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { CardBody } from "react-bootstrap";
+<<<<<<< HEAD:components/reportPage/LeftSideTabs.tsx
 import { Select, MenuItem, IconButton, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+=======
+import { Select, MenuItem, InputLabel } from "@mui/material";
+
+import { useState } from "react";
+import FloatingButton02 from "./FloadtingButton02";
+import AddIcon from '@mui/icons-material/Add';
+>>>>>>> af1f8c7aad24ed9d82045e565b6f6a2eca95cc26:components/reportPage/BottomSide/LeftSideTabs.tsx
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -390,6 +398,7 @@ export default function BasicTabs() {
             onChange={handleInputChange}
             sx={{ mb: 2 }}
           />
+<<<<<<< HEAD:components/reportPage/LeftSideTabs.tsx
           {/* Add additional form fields as needed */}
         </DialogContent>
         <DialogActions>
@@ -401,6 +410,16 @@ export default function BasicTabs() {
           </Button>
         </DialogActions>
       </Dialog>
+=======
+        </CardBody>
+      </CustomTabPanel>
+      <div className='w-100  d-flex align-items-end justify-content-end' style={{ padding: '0 60px 50px 0' }}>
+        <FloatingButton02 right0='35px' bottom0='30px' icon0={<AddIcon style={{
+          right: '3px',
+          position: 'relative'
+        }} />} />
+      </div>
+>>>>>>> af1f8c7aad24ed9d82045e565b6f6a2eca95cc26:components/reportPage/BottomSide/LeftSideTabs.tsx
     </>
   );
 }

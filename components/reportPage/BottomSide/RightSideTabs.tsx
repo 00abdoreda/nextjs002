@@ -14,6 +14,7 @@ import { buttonClasses } from '@mui/base/Button';
 import { Tab as BaseTab, tabClasses } from '@mui/base/Tab';
 import { motion } from "framer-motion"
 import RightSide01 from './RightSide01';
+import FloatingButton01 from './FloadtingButton01';
 
 const fabStyle = {
   position: 'absolute',
@@ -72,7 +73,7 @@ const RightSideTabs = () => {
     <>
       <RightSide01 />
       <div className='w-100 position-relative d-flex align-items-end justify-content-end' style={{ padding: '0 60px 50px 0' }}>
-        <motion.div style={{
+        {/* <motion.div style={{
           width: 'fit-content',
           height: 'fit-content', position: 'fixed', marginRight: '10px', marginBottom: '10px'
         }}
@@ -92,11 +93,15 @@ const RightSideTabs = () => {
               <Tab >A3</Tab>
             </TabsList>
           </Tabs>
-        </motion.div>
-        <Fab sx={fab.sx} aria-label={fab.label} onClick={() => { settoggleLogo(!toggleLogo) }}>
-
+        </motion.div> */}
+        <FloatingButton01 right0='20px' bottom0='25px' icon0={<Image src="/assets/images/img2.png" alt="Logo001" width={45} height={45} style={{
+          position: 'absolute',
+          right: `-1px`,
+          bottom: `-2px`,
+        }} />} />
+        {/* <Fab sx={fab.sx} aria-label={fab.label} onClick={() => { settoggleLogo(!toggleLogo) }}>
           <Image src="/assets/images/img2.png" alt="Logo001" width={57} height={57} />
-        </Fab>
+        </Fab> */}
       </div>
     </>
   )
